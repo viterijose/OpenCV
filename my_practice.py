@@ -36,6 +36,10 @@ for (channel,color) in zip(channels,colors):
     plt.xlim([0,256])
 plt.show()
 
+blue = pd.DataFrame(data=channels[0])
+green = pd.DataFrame(data=channels[1])
+red = pd.DataFrame(data=channels[2])
+print(blue)
 # plt.figure()
 # plt.title("Greyscale")
 # plt.xlabel("Bins")
