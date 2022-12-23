@@ -1,5 +1,6 @@
 from __future__ import print_function
 from matplotlib import pyplot as plt
+import pandas as pd
 import cv2
 import argparse
 
@@ -20,12 +21,21 @@ cv2.imshow("Original - Inter area",resized_area)
 # resized_linear=cv2.resize(image,dim,interpolation=cv2.INTER_LINEAR)
 # cv2.imshow("Inter linear",resized_linear)
 
-b,g,r = cv2.split(resized_area)
-print(len(b))
-print(len(g))
-print(len(r))
-image = cv2.cvtColor(resized_area,cv2.COLOR_BGR2GRAY)
-hist = cv2.calcHist([image],[0],None,[256],[0,256])
+channels= cv2.split(resized_area)
+print(len(channels[0]))
+print(len(channels[1]))
+print(len(channels[2]))
+plt.figure()
+# # Removed the grayscale since I will only be plotting the colors in histogram
+# image = cv2.cvtColor(resized_area,cv2.COLOR_BGR2GRAY)
+# hist = cv2.calcHist([image],[0],None,[256],[0,256])
+colors = ("b","g","r")
+for (channel,color) in zip(channels,colors):
+    hist = cv2.calcHist([channel],[0],None,[256],[0,256])
+    plt.plot(hist,color=color)
+    plt.xlim([0,256])
+plt.show()
+
 # plt.figure()
 # plt.title("Greyscale")
 # plt.xlabel("Bins")
